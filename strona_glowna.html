@@ -1,0 +1,189 @@
+<?php
+    session_start();
+
+    if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)) //jeżeli jestemśmy zalogowanie to nastąpi przekierowanie do strony strona_glowna.php
+    {
+        header('Location: strona_glowna.php'); //przekierowanie
+        exit(); //zatrzymanie wykonywania dalszej części kodu jeżeli warunek jest prawdziwy
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="pl">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+  body {font-family: "Lato", sans-serif}
+  .mySlides {display: none}
+   input[type="button"]
+   {
+     display:block;
+     background:none;
+     color:white;
+     border: none;
+     outline:none;
+   }
+
+  input[type="submit"]
+  {
+    display:block;
+    background:none;
+    color:white;
+    border: none;
+    outline:none;
+  }
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+
+  <div class="w3-bar w3-black w3-card">
+
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
+       onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="strona_glowna.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Home</a>
+    <a href="#bd" class="w3-bar-item w3-button w3-padding-large">
+
+      <input type="submit" value="Baza danych" name="bdlog" onclick=window.location.href='#'; />
+
+    </a>
+    <a href="#formularze" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
+
+      <input type="button" value="Formularze" name="formul" onclick=window.location.href='wybor_formularza.php'; />
+
+    </a>
+    <a href="#zebrane dane" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
+
+      <input type="button" value="Zebrane Dane" name="zebdan" onclick=window.location.href='#'; />
+
+    </a>
+    <a href="#zaloguj" value="Login" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">
+
+      <input type="button" value="Login" name="logowanie" onclick=window.location.href='login.php'; />
+
+    </a>
+    <a href="logout.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Wyloguj</a>
+
+    <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-padding-large w3-button" title="More">Historia <i class="fa fa-caret-down"></i></button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="#przemek" class="w3-bar-item w3-button">Podgląd</a>
+        <a href="#radek" class="w3-bar-item w3-button">Edycja</a>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+  </div>
+</div>
+
+<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="#bd" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">BD</a>
+  <a href="#formularze" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Formularze</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Kontakt</a>
+  <a href="#zaloguj" class="w3-bar-item w3-button w3-padding-large w3-right" onclick="myFunction()">Zaloguj</a>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+  <!-- Automatic Slideshow Images -->
+  <div class="mySlides w3-display-container w3-center">
+    <img src="img/background1.jpg" style="width:100%" height="500px" >
+    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h3>Generator Formularzy</h3>
+      <p><b>Stwórz własny formularz już dziś!</b></p>
+    </div>
+  </div>
+  <div class="mySlides w3-display-container w3-center">
+    <img src="img/background2.jpg" style="width:100%" height="500px">
+    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h3>Zupełnie darmowe narzędzie.</h3>
+      <p><b>Nie płać już nigdy więcej.</b></p>
+    </div>
+  </div>
+  <div class="mySlides w3-display-container w3-center">
+    <img src="img/background3.jpg" style="width:100%" height="500px">
+    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+      <h3>Zero reklam.</h3>
+      <p><b>Serwery są napędzane przez chomiki w związku z tym nie potrzebujemy pieniędzy na utrzymanie serwerów.</b></p>
+    </div>
+  </div>
+
+  <!-- The Band Section -->
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+    <h2 class="w3-wide">Twórcy</h2>
+    <p class="w3-opacity"><i>Bazy danych projekt</i></p>
+    <p class="w3-justify">Stworzony przez nas generator formularzy powinien nauczyć nas obsługi baz danych.</p>
+    <div class="w3-row w3-padding-32">
+      <div class="w3-third">
+        <p>Radosław Loth</p>
+        <img src="img/Radek.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+      </div>
+      <div class="w3-third">
+        <p>Przemysław Pobidyński</p>
+        <img src="/w3images/bandmember.jpg" class="w3-round w3-margin-bottom" alt="brak zdjecia" style="width:60%">
+      </div>
+      <div class="w3-third">
+        <p>Oskar Kulesza</p>
+        <img src="/w3images/bandmember.jpg" class="w3-round" alt="brak zdjecia" style="width:60%">
+      </div>
+      <div class="w3-third">
+        <p>Jakub Kondziołka</p>
+        <img src="/w3images/bandmember.jpg" class="w3-round" alt="brak zdjecia" style="width:60%">
+      </div>
+    </div>
+  </div>
+
+
+    <script>
+              // Automatic Slideshow - change image every 4 seconds
+              var myIndex = 0;
+              carousel();
+
+              function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                  x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}
+                x[myIndex-1].style.display = "block";
+                setTimeout(carousel, 4000);
+              }
+
+              // Used to toggle the menu on small screens when clicking on the menu button
+              function myFunction() {
+                var x = document.getElementById("navDemo");
+                if (x.className.indexOf("w3-show") == -1) {
+                  x.className += " w3-show";
+                } else {
+                  x.className = x.className.replace(" w3-show", "");
+                }
+              }
+
+              // When the user clicks anywhere outside of the modal, close it
+              var modal = document.getElementById('ticketModal');
+              window.onclick = function(event) {
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
+              }
+            </script>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Page Content -->
+</div>
+</body>
+</html>
+
