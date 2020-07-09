@@ -29,7 +29,7 @@
 	</center>
 	
 	<footer>
-		wersja strony: 1.0.0
+		wersja strony: 1.0.1
 	</footer>
 </body>
 </html>

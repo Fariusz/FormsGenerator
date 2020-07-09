@@ -21,6 +21,14 @@
         <input type="submit" value="Zaloguj się" />
      
     </form>
+	
+<?php
+	if(isset($_SESSION['blad']))	echo $_SESSION['blad'];
+?>
 
+	<br>
+	<br>
+	<a href="index.php">Strona główna</a>
+	
 </body>
 </html>
