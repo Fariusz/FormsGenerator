@@ -79,7 +79,7 @@
 					$p_drugie = false;
 					$p_trzecie = false;
 					
-					if($polaczenie->query("INSERT INTO ankieta VALUES (NULL, '".$_SESSION['tytul_formularza']."', '2000-01-01 00:00:00', '2050-01-01 00:00:00')"))
+					if($polaczenie->query("INSERT INTO ankieta VALUES (NULL, '".$_SESSION['tytul_formularza']."', '2000-01-01 00:00:00', '2050-01-01 00:00:00','".$_SESSION['id']."')"))
 					{
 						$p_tytul=true;
 					}
