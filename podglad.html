@@ -1,16 +1,18 @@
 <?php
-    session_start();
 
-    if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)) //jeżeli jestemśmy zalogowanie to nastąpi przekierowanie do strony strona_glowna.html
-    {
-        header('Location: strona_glowna.html'); //przekierowanie
-        exit(); //zatrzymanie wykonywania dalszej części kodu jeżeli warunek jest prawdziwy
-    }
+	session_start();
+
+	if (!isset($_SESSION['zalogowany'])) //jeżeli nie jesteś zalogowany to przeniesie cię na stronę główną
+	{
+		header('Location: index.html'); //przekierowanie do index.php
+		exit(); //zatrzymanie wykonywania dalszego kodu jeżeli to co wyżej jest prawdziwe
+	}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="pl">
-<title>W3.CSS Template</title>
+<title>Podgląd</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -47,51 +49,13 @@
 
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
        onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+
     <a href="strona_glowna.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
 
-      <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='strona_glowna.html'; />
+    <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='strona_glowna.html'; />
 
-    </a>
-    <a href="#bazadanych" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='pytania.html'; />
-
-    </a>
-    <a href="#formularze" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Formularze" name="formul" onclick=window.location.href='wybor_formularza.html'; />
-
-    </a>
-    <a href="#zebrane dane" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Zebrane Dane" name="zebdan" onclick=window.location.href='#'; />
-
-    </a>
-    <a href="#zaloguj" value="Login" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">
-
-      <input type="button" value="Login" name="logowanie" onclick=window.location.href='login.html'; />
-
-    </a>
-    <a href="logout.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Wyloguj</a>
-
-    <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Historia <i class="fa fa-caret-down"></i></button>
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#przemek" class="w3-bar-item w3-button">
-
-          <input type="button" value="Podgląd" name="zebdan" onclick=window.location.href='podglad.html'; />
-
-        </a>
-        <a href="#radek" class="w3-bar-item w3-button">
-
-          <input type="button" value="Edycja" name="zebdan" onclick=window.location.href='edycja.html'; />
-
-        </a>
-      </div>
-    </div>
-    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
-  </div>
-</div>
+  </a>
+    <a href="logout.php" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Wyloguj</a>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
 <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
@@ -127,6 +91,22 @@
     </div>
   </div>
 
+  <br><br>
+
+
+  <?php
+
+	echo "<center> <b>Tytuł formularza</b>: ".$_SESSION['tytul_formularza'].'</center><br /><br />';
+  echo "<center> <b>Treść pytania pierwszego</b>: ".$_SESSION['pyt1']. '</center><br />';
+  echo "<center> <b>Udzielona odpowiedź</b>: ".$_SESSION['odp1']. '</center><br /><br />';
+  echo "<center> <b>Treść pytania drugiego</b>: ".$_SESSION['pyt2']. '</center><br />';
+  echo "<center> <b>Udzielona odpowiedź</b>: ".$_SESSION['odp2']. '</center><br /><br />';
+  echo "<center> <b>Treść pytania trzeciego</b>: ".$_SESSION['pyt3']. '</center><br />';
+  echo "<center> <b>Udzielona odpowiedź</b>: ".$_SESSION['odp3']. '</center><br />';
+
+  ?>
+
+<br><br>
   <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
     <h2 class="w3-wide">Twórcy</h2>
@@ -149,7 +129,8 @@
   </div>
 
 
-    <script>
+
+  <script>
               // Automatic Slideshow - change image every 4 seconds
               var myIndex = 0;
               carousel();

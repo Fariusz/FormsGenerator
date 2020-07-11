@@ -1,16 +1,18 @@
 <?php
-    session_start();
 
-    if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)) //jeżeli jestemśmy zalogowanie to nastąpi przekierowanie do strony strona_glowna.html
-    {
-        header('Location: strona_glowna.html'); //przekierowanie
-        exit(); //zatrzymanie wykonywania dalszej części kodu jeżeli warunek jest prawdziwy
-    }
+	session_start();
+
+	if (!isset($_SESSION['zalogowany'])) //jeżeli nie jesteś zalogowany to przeniesie cię na stronę główną
+	{
+		header('Location: index.html'); //przekierowanie do index.php
+		exit(); //zatrzymanie wykonywania dalszego kodu jeżeli to co wyżej jest prawdziwe
+	}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="pl">
-<title>W3.CSS Template</title>
+<title>Podgląd</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -52,46 +54,11 @@
       <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='strona_glowna.html'; />
 
     </a>
-    <a href="#bazadanych" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='pytania.html'; />
-
-    </a>
-    <a href="#formularze" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Formularze" name="formul" onclick=window.location.href='wybor_formularza.html'; />
-
-    </a>
-    <a href="#zebrane dane" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Zebrane Dane" name="zebdan" onclick=window.location.href='#'; />
-
-    </a>
-    <a href="#zaloguj" value="Login" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">
-
-      <input type="button" value="Login" name="logowanie" onclick=window.location.href='login.html'; />
-
-    </a>
     <a href="logout.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Wyloguj</a>
 
-    <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Historia <i class="fa fa-caret-down"></i></button>
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#przemek" class="w3-bar-item w3-button">
 
-          <input type="button" value="Podgląd" name="zebdan" onclick=window.location.href='podglad.html'; />
-
-        </a>
-        <a href="#radek" class="w3-bar-item w3-button">
-
-          <input type="button" value="Edycja" name="zebdan" onclick=window.location.href='edycja.html'; />
-
-        </a>
-      </div>
-    </div>
     <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
   </div>
-</div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
 <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
@@ -148,8 +115,226 @@
     </div>
   </div>
 
+<br><br><br>
 
-    <script>
+  <a href="strona_glowna.php" >
+    <img border="0" alt="Cofnij" title="Cofnij do podawania nazwy formularza" src="grafika/cofnij.png" width="50" height="50" name="powrot">
+  </a>
+
+  <div name="wyloguj">
+    <b>
+      <a href="logout.php">Wyloguj się!</a>
+    </b>
+  </div>
+  <br>
+  <br>
+
+  Użytkownik<br>
+  <table border = 1; style="border-collapse: collapse">
+    <tr>
+      <th>Id</th>
+      <th>Nazwa Użytkownika</th>
+      <th>Login</th>
+    </tr>
+    <?php //wyświetlanie danych
+
+		require_once "connect.php";
+		$polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
+		if ($polaczenie->connect_errno!=0)//jeżeli nie udało się połączyć za bazą danych
+    {
+    throw new Exception(mysqli_connect_errno()); //rzuć nowym wujątkiem które przychwytuje pole catch w zmiennej .$e
+    //mysqli_connect_errno() zgłasza dokładny komunikat błedu
+    }
+    else
+    {
+    $rezultat = $polaczenie->query("SELECT id_u, nazwa_użytkownika, login FROM użytkownik");
+
+    if (!$rezultat) throw new Exception($polaczenie->error);
+
+    $ilu_userow = $rezultat->num_rows;
+    if($ilu_userow>0)
+    {
+    while($wiersz = mysqli_fetch_array($rezultat))
+    {
+    echo '
+    <tr>
+      <td>'.$wiersz["id_u"].'</td>
+      <td>'.$wiersz["nazwa_użytkownika"].'</td>
+      <td>'.$wiersz["login"].'</td>
+    </tr>
+    ';
+    }
+    echo "</table>";
+  }
+  else
+  {
+  echo "0 wyników";
+  }
+  }
+  $polaczenie->close();
+
+  ?>
+  </table>
+
+  <br>
+
+  pytanie<br>
+  <table border = 1; style="border-collapse: collapse">
+    <tr>
+      <th>Id pytania</th>
+      <th>Id ankiety</th>
+      <th>Treść pytania</th>
+    </tr>
+    <?php //wyświetlanie danych
+
+		require_once "connect.php";
+		$polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
+		if ($polaczenie->connect_errno!=0)//jeżeli nie udało się połączyć za bazą danych
+    {
+    throw new Exception(mysqli_connect_errno()); //rzuć nowym wujątkiem które przychwytuje pole catch w zmiennej .$e
+    //mysqli_connect_errno() zgłasza dokładny komunikat błedu
+    }
+    else
+    {
+    $rezultat = $polaczenie->query("SELECT Id_p, Id_a, Treść_pytania FROM pytanie");
+
+    if (!$rezultat) throw new Exception($polaczenie->error);
+
+    $ilu_userow = $rezultat->num_rows;
+    if($ilu_userow>0)
+    {
+    while($wiersz = mysqli_fetch_array($rezultat))
+    {
+    echo '
+    <tr>
+      <td>'.$wiersz["Id_a"].'</td>
+      <td>'.$wiersz["Id_a"].'</td>
+      <td>'.$wiersz["Treść_pytania"].'</td>
+    </tr>
+    ';
+    }
+    echo "</table>";
+  }
+  else
+  {
+  echo "0 wyników";
+  }
+  }
+  $polaczenie->close();
+
+  ?>
+  </table>
+
+  <br>
+
+  odpowiedzi<br>
+  <table border = 1; style="border-collapse: collapse">
+    <tr>
+      <th>Id pytania</th>
+      <th>Treść odpowiedzi</th>
+      <th>Czas</th>
+      <th>Id użytkownika</th>
+    </tr>
+    <?php //wyświetlanie danych
+
+		require_once "connect.php";
+		$polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
+		if ($polaczenie->connect_errno!=0)//jeżeli nie udało się połączyć za bazą danych
+    {
+    throw new Exception(mysqli_connect_errno()); //rzuć nowym wujątkiem które przychwytuje pole catch w zmiennej .$e
+    //mysqli_connect_errno() zgłasza dokładny komunikat błedu
+    }
+    else
+    {
+    $rezultat = $polaczenie->query("SELECT Id_p, Treść_odpowiedzi, Czas, Id_u FROM odpowiedź");
+
+    if (!$rezultat) throw new Exception($polaczenie->error);
+
+    $ilu_userow = $rezultat->num_rows;
+    if($ilu_userow>0)
+    {
+    while($wiersz = mysqli_fetch_array($rezultat))
+    {
+    echo '
+    <tr>
+      <td>'.$wiersz["Id_p"].'</td>
+      <td>'.$wiersz["Treść_odpowiedzi"].'</td>
+      <td>'.$wiersz["Czas"].'</td>
+      <td>'.$wiersz["Id_u"].'</td>
+    </tr>
+    ';
+    }
+    echo "</table>";
+  }
+  else
+  {
+  echo "0 wyników";
+  }
+  }
+  $polaczenie->close();
+
+  ?>
+  </table>
+
+  <br>
+
+  ankieta<br>
+  <table border = 1; style="border-collapse: collapse">
+    <tr>
+      <th>Id ankiety</th>
+      <th>nazwa</th>
+      <th>data_r</th>
+      <th>data_k</th>
+      <th>Id użytkownika</th>
+    </tr>
+    <?php //wyświetlanie danych
+
+		require_once "connect.php";
+		$polaczenie = new mysqli($host, $db_user, $db_password, $db_name);
+		if ($polaczenie->connect_errno!=0)//jeżeli nie udało się połączyć za bazą danych
+    {
+    throw new Exception(mysqli_connect_errno()); //rzuć nowym wujątkiem które przychwytuje pole catch w zmiennej .$e
+    //mysqli_connect_errno() zgłasza dokładny komunikat błedu
+    }
+    else
+    {
+    $rezultat = $polaczenie->query("SELECT Id_a, nazwa, data_r, data_k, id_u FROM ankieta");
+
+    if (!$rezultat) throw new Exception($polaczenie->error);
+
+    $ilu_userow = $rezultat->num_rows;
+    if($ilu_userow>0)
+    {
+    while($wiersz = mysqli_fetch_array($rezultat))
+    {
+    echo '
+    <tr>
+      <td>'.$wiersz["Id_a"].'</td>
+      <td>'.$wiersz["nazwa"].'</td>
+      <td>'.$wiersz["data_r"].'</td>
+      <td>'.$wiersz["data_k"].'</td>
+      <td>'.$wiersz["id_u"].'</td>
+    </tr>
+    ';
+    }
+    echo "</table>";
+  }
+  else
+  {
+  echo "0 wyników";
+  }
+  }
+  $polaczenie->close();
+
+  ?>
+  </table>
+
+
+
+
+
+
+  <script>
               // Automatic Slideshow - change image every 4 seconds
               var myIndex = 0;
               carousel();

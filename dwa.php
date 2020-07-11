@@ -1,17 +1,17 @@
 <?php
 
 	session_start();
-	
+
 	if (!isset($_SESSION['udanyzapis'])) //jeżeli nie jesteś zalogowany to przeniesie cię na stronę główną
 	{
-		header('Location: index.php'); //przekierowanie do index.php
+		header('Location: index.html'); //przekierowanie do index.php
 		exit(); //zatrzymanie wykonywania dalszego kodu jeżeli to co wyżej jest prawdziwe
 	}
 	else
 	{
 		unset($_SESSION['udanyzapis']);
 	}
-	
+
 ?>
 <!DOCTYPE HTML>
 <html lang="pl">
@@ -26,7 +26,7 @@
 	<a href="formularz.php" >
 		<img border="0" alt="Cofnij" title="Cofnij do podawania nazwy formularza" src="grafika/cofnij.png" width="50" height="50" name="powrot">
 	</a>
-	
+
 	<div name="wyloguj">
 		<b>
 			<a href="logout.php">Wyloguj się!</a>
@@ -34,7 +34,7 @@
 	</div>
 	<br>
 	<br>
-	
+
 	Gratulacje udało ci się stworzyć własną ankietę!!!
 
 	Teraz możesz powrócić do strony wyboru formularzy
@@ -44,7 +44,7 @@
 <?php //wyświetlanie danych
 
 	echo "<b>Tytuł</b>: ".$_SESSION['tytul_formularza'];
-	
+
 ?>
 
 </body>

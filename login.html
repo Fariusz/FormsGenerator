@@ -1,11 +1,7 @@
 <?php
-    session_start();
 
-    if ((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true)) //jeżeli jestemśmy zalogowanie to nastąpi przekierowanie do strony strona_glowna.html
-    {
-        header('Location: strona_glowna.html'); //przekierowanie
-        exit(); //zatrzymanie wykonywania dalszej części kodu jeżeli warunek jest prawdziwy
-    }
+	session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +33,15 @@
     border: none;
     outline:none;
   }
+ input[name="loguj"]
+ {
+   display:block;
+   background:black;
+   color:white;
+   border: none;
+   outline:none;
+ }
+
 </style>
 <body>
 
@@ -45,52 +50,11 @@
 
   <div class="w3-bar w3-black w3-card">
 
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
-       onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="strona_glowna.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='strona_glowna.html'; />
-
-    </a>
-    <a href="#bazadanych" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Baza danych" name="bdlog" onclick=window.location.href='pytania.html'; />
-
-    </a>
-    <a href="#formularze" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Formularze" name="formul" onclick=window.location.href='wybor_formularza.html'; />
-
-    </a>
-    <a href="#zebrane dane" class="w3-bar-item w3-button w3-padding-large w3-hide-small">
-
-      <input type="button" value="Zebrane Dane" name="zebdan" onclick=window.location.href='#'; />
-
-    </a>
-    <a href="#zaloguj" value="Login" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">
-
-      <input type="button" value="Login" name="logowanie" onclick=window.location.href='login.html'; />
-
-    </a>
-    <a href="logout.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small w3-right">Wyloguj</a>
-
-    <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Historia <i class="fa fa-caret-down"></i></button>
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#przemek" class="w3-bar-item w3-button">
-
-          <input type="button" value="Podgląd" name="zebdan" onclick=window.location.href='podglad.html'; />
-
-        </a>
-        <a href="#radek" class="w3-bar-item w3-button">
-
-          <input type="button" value="Edycja" name="zebdan" onclick=window.location.href='edycja.html'; />
-
-        </a>
-      </div>
+    <div class="w3-center">
+      Prosze się zalogować.
     </div>
-    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
-  </div>
+
+    </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
@@ -127,10 +91,38 @@
     </div>
   </div>
 
+  <br><br>
+
+
+
+  <form action="zaloguj.php" method="post" class="w3-center" target="_blank">
+
+    <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+      <div class="w3-half">
+        <input class="w3-input w3-border" type="text" placeholder="Login" required name="Login">
+      </div>
+      <div class="w3-half">
+        <input class="w3-input w3-border" type="text" placeholder="Hasło" required name="Hasło">
+      </div>
+    </div>
+
+    <button class="w3-button w3-black w3-center w3-section" type="submit">
+      <i class="fa fa-paper-plane"></i>
+      Zaloguj się
+    </button>
+  </form>
+
+
+  <?php
+	if(isset($_SESSION['blad']))	echo $_SESSION['blad'];
+?>
+
+
+
   <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
     <h2 class="w3-wide">Twórcy</h2>
-    <p class="w3-opacity"><i>Bazy danych projekt</i></p>
+    <p class="w3-opacity"><i>Generator formularzy</i></p>
     <p class="w3-center">Stworzony przez nas generator formularzy powinien nauczyć nas obsługi baz danych.</p>
     <div class="w3-row w3-padding-32">
       <div class="w3-third">
@@ -145,6 +137,7 @@
         <p>Oskar Kulesza</p>
         <img src="img/default.png" class="w3-round" alt="brak zdjecia" style="width:60%">
       </div>
+
     </div>
   </div>
 
