@@ -36,7 +36,7 @@
 			{
 				$_SESSION['zalogowany'] = true; //ustawiliśmy sobie tu flage
 
-				$wiersz = $rezultat->fetch_assoc();
+				$wiersz = $rezultat->fetch_assoc(); //tablica assocjacyjna, jako indeksy są nazwy pól z tabeli
 				$_SESSION['id'] = $wiersz['id_u'];
 				$_SESSION['nazwa_uz'] = $wiersz['nazwa_użytkownika'];
 				$_SESSION['login'] = $wiersz['login'];
