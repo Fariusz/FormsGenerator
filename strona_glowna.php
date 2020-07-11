@@ -19,8 +19,9 @@
 </head>
 
 <body>
-	<input type="submit" value="Baza danych" name="bdlog" onclick=window.location.href='#'; />
+	<input type="submit" value="Baza danych" name="bdlog" onclick=window.location.href='baza_danych.php'; />
 	<input type="button" value="Formularze" name="formul" onclick=window.location.href='wybor_formularza.php'; />
+	<input type="button" value="Wypełnij formularz" name="wypelnienie" onclick=window.location.href='wypelnienie.php'; />
 	<div name="wyloguj">
 		<b>
 			<a href="logout.php">Wyloguj się!</a>

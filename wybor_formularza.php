@@ -22,13 +22,13 @@
 	<a href="strona_glowna.php" >
 		<img border="0" alt="Strona Główna" src="grafika/domek.png" width="50" height="50" name="domek">
 	</a>
-	<input type="submit" value="Generator Formularzy" name="genfor" onclick=window.location.href='#'; />
+	<input type="submit" value="Generator Formularzy" name="genfor" onclick=window.location.href='formularz.php'; />
 	
 <div class="dropdown">
 	<button class="dropbtn">Historia</button>
 	<div class="dropdown-content">
-		<a href="#">Podgląd</a>
-		<a href="#">Edycja</a>
+		<a href="podglad.php">Podgląd</a>
+		<a href="edycja_tabela.php">Edycja</a>
 	</div>
 </div>
 

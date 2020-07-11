@@ -83,3 +83,7 @@ footer {
     background: green;
     bottom: 0;
 }
+
+div[name="odsuniecie"]{
+    margin:2.5%;
+}
